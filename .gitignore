@@ -3,3 +3,5 @@ Backend/env
 
 # Ignore VSCode settings
 Backend/.vscode
+
+**/*.pyc
