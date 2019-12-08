@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
+import 'package:todoapp/UI/Login/loginscreen.dart';
 import 'package:todoapp/models/global.dart';
 
 void main() => runApp(MyApp());
@@ -9,11 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Todo App',
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(title: 'Todo app'),
+//      home: MyHomePage(title: 'Todo app'),
+      home: LoginPage(),
     );
   }
 }

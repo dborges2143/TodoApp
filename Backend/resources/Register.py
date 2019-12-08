@@ -2,6 +2,8 @@ from flask_restful import Resource
 from flask import request
 from models import db, User
 # from models import db, User, UserSchema
+import random
+import string
 
 # user_schema = UserSchema()
 
@@ -37,7 +39,16 @@ class Register(Resource):
         if email:
             return {'message': 'Email already exists'}, 400
 
+        # Generate a unique api key
+        unique_key = False
+        while not unique_key:
+            new_api_key = self.generate_key()
+            key_match = User.query.filter_by(api_key=new_api_key).first()
+            if not key_match:
+                unique_key = True
+
         user = User(
+            api_key=new_api_key,
             username=json_data['username'],
             first_name=json_data['firstname'],
             last_name=json_data['lastname'],
@@ -52,3 +63,6 @@ class Register(Resource):
         result = User.serialize(user)
 
         return {"status": 'success', 'data': result}, 201
+
+    def generate_key(self):
+        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(50))
